@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "lalFE"
+		},
+		{
+			"path": "lalBE"
+		}
+	],
+	"settings": {
+		"i18n-ally.localesPaths": [
+			"src/i18n"
+		]
+	}
+}
