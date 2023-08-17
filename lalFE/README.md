@@ -1,4 +1,4 @@
-# Lalanini (Lalanini)
+# Lalanet (Lalanet)
 
 Lullaby APP
 

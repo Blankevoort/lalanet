@@ -28,9 +28,9 @@ const routes = [
         component: () => import("src/pages/Main Pages/showAllStories.vue"),
       },
     ],
-    meta: {
-      requireAuth: true,
-    },
+    // meta: {
+    //   requireAuth: true,
+    // },
   },
   {
     path: "/player",
@@ -51,9 +51,9 @@ const routes = [
         component: () => import("src/pages/Main Pages/UploadStory.vue"),
       },
     ],
-    meta: {
-      requireAuth: true,
-    },
+    // meta: {
+    //   requireAuth: true,
+    // },
   },
   {
     path: "/dashboard",
@@ -64,9 +64,9 @@ const routes = [
         component: () => import("src/pages/Main Pages/DashboardPage.vue"),
       },
     ],
-    meta: {
-      requireAuth: true,
-    },
+    // meta: {
+    //   requireAuth: true,
+    // },
   },
 
   {

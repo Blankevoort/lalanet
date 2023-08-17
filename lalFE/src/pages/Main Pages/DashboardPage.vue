@@ -5,7 +5,7 @@
     <div class="pfp">
       <q-img class="absolute-center" src="/Images/profile-image.png" />
     </div>
-    <div class="username">Username</div>
+    <div class="username q-mt-sm">Username</div>
 
     <div class="space full-width">
       <q-separator color="grey-6" size="4px" class="q-mb-md" />
@@ -14,7 +14,6 @@
 
       <q-dialog v-model="showStory">
         <q-card class="my-card bg-primary" flat bordered>
-
           <q-card-section class="col-5 flex flex-center">
             <q-avatar size="75px" color="indigo-4" class="r11">
               <q-icon color="white" name="menu_book" />
@@ -25,12 +24,12 @@
             <q-card-section class="q-pt-xs">
               <div class="text-h6 q-mt-sm q-mb-xs">Title</div>
               <div class="text-caption text-grey">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </div>
             </q-card-section>
           </q-card-section>
@@ -38,9 +37,7 @@
           <q-separator />
 
           <q-card-actions>
-            <q-btn flat color="cyan-6">
-              Reserve
-            </q-btn>
+            <q-btn flat color="cyan-6"> Reserve </q-btn>
           </q-card-actions>
         </q-card>
       </q-dialog>
@@ -77,12 +74,10 @@
 
       <q-separator color="grey-6" size="4px" class="q-my-md" />
 
-
       <div class="font-13 text-weight-bold">Your Lalaies</div>
 
       <q-dialog v-model="showLalaey">
         <q-card class="my-card bg-primary" flat bordered>
-
           <q-card-section class="col-5 flex flex-center">
             <q-avatar size="75px" color="indigo-4" class="r11">
               <q-icon color="white" name="star" />
@@ -93,12 +88,12 @@
             <q-card-section class="q-pt-xs">
               <div class="text-h6 q-mt-sm q-mb-xs">Title</div>
               <div class="text-caption text-grey">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </div>
             </q-card-section>
           </q-card-section>
@@ -106,15 +101,12 @@
           <q-separator />
 
           <q-card-actions>
-            <q-btn flat color="cyan-6">
-              Reserve
-            </q-btn>
+            <q-btn flat color="cyan-6"> Reserve </q-btn>
           </q-card-actions>
         </q-card>
       </q-dialog>
 
       <div class="full-width q-pt-md">
-
         <q-list class="bg-primary" @click="toggleShowLalaey()">
           <q-item clickable v-ripple>
             <q-item-section avatar>
@@ -129,7 +121,6 @@
             </q-item-section>
           </q-item>
         </q-list>
-
       </div>
     </div>
   </q-page>
@@ -137,78 +128,78 @@
 
 <script>
 import { ref, onMounted, onBeforeMount, computed } from "vue";
-import { api } from 'src/boot/axios';
+import { api } from "src/boot/axios";
 
-import { currentStory } from 'stores/theStory';
-import { storeToRefs } from 'pinia';
+import { currentStory } from "stores/theStory";
+import { storeToRefs } from "pinia";
 export default {
   setup() {
     const store = currentStory();
     const theStory = computed(() => store.theStory);
     const setCurrentStory = (data) => store.setCurrentStory(data);
     const showCurrentStory = computed(() => store.showCurrentStory);
-    const stories = ref([])
-    const storeStory = currentStory()
+    const stories = ref([]);
+    const storeStory = currentStory();
     const current = computed(() => storeStory.theStory);
-    const show = ref(false)
-    const userinfo = ref([])
-    const userRegistered = ref(false)
-    const profile = ref(false)
-    const userName = ref()
-    const showLalaey = ref(false)
-    const showStory = ref(false)
+    const show = ref(false);
+    const userinfo = ref([]);
+    const userRegistered = ref(false);
+    const profile = ref(false);
+    const userName = ref();
+    const showLalaey = ref(false);
+    const showStory = ref(false);
 
     function fetchUserStoris() {
-      api.get("api/userStories").then(r => {
+      api.get("api/userStories").then((r) => {
         stories.value = r.data;
       });
     }
 
     function fetchUserData() {
-      api.get('api/user')
-        .then(r => {
-          userinfo.value = r.data;
-          userRegistered.value = true
-        })
+      api.get("api/user").then((r) => {
+        userinfo.value = r.data;
+        userRegistered.value = true;
+      });
     }
 
     function Profile() {
-      api.post("api/profile", {
-        userName: userName.value,
-      })
-        .then(r => {
+      api
+        .post("api/profile", {
+          userName: userName.value,
+        })
+        .then((r) => {
           if (r.data != null) {
             location.reload();
           }
         })
-        .catch(err => {
+        .catch((err) => {
           error.value = err;
-        })
+        });
     }
 
     function toggleShowLalaey() {
       if (showLalaey.value === false) {
-        showLalaey.value = true
+        showLalaey.value = true;
       } else {
-        showLalaey.value = false
+        showLalaey.value = false;
       }
     }
 
     function toggleShowStory() {
       if (showStory.value === false) {
-        showStory.value = true
+        showStory.value = true;
       } else {
-        showStory.value = false
+        showStory.value = false;
       }
     }
 
     onMounted(() => {
-      fetchUserStoris()
-    })
+      fetchUserStoris();
+    });
 
     onBeforeMount(() => {
-      fetchUserData()
-    })
+      fetchUserData();
+    });
 
     return {
       show,
@@ -229,7 +220,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .r11 {
   border-radius: 11px;
 }
@@ -238,7 +229,7 @@ export default {
   position: absolute;
   height: 198px;
 
-  background: #64DDDD;
+  background: #64dddd;
 }
 
 .pfp {
@@ -247,8 +238,8 @@ export default {
   height: 125px;
   left: 130px;
   top: 130px;
-  background: #BBECFE;
-  border: 5px solid #FFFFFF;
+  background: #bbecfe;
+  border: 5px solid #ffffff;
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
   border-radius: 50%;
 }

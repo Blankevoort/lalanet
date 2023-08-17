@@ -3,8 +3,8 @@
     <q-header class="bg-primary text-black q-pa-md absolute">
       <q-toolbar>
         <q-btn flat round dense icon="menu" @click="toggleLeftDrawer" />
-        <q-toolbar-title class="font-16">
-          Hello! <span class="text-weight-bold">Adam</span>
+        <q-toolbar-title class="font-16 text-center">
+          سلام <span class="text-weight-bold">آدام</span>
         </q-toolbar-title>
         <q-avatar class="bg2">
           <img
@@ -16,8 +16,58 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" side="left" behavior="mobile" elevated>
-      <!-- drawer content -->
+    <q-drawer class="text-center" v-model="leftDrawerOpen" side="left" behavior="mobile">
+      <q-list class="q-my-lg q-mx-sm" :horizontal-thumb-style="{ opacity: 0 }">
+        <q-item to="/classes" class="q-my-sm" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="home" />
+          </q-item-section>
+
+          <q-item-section>صفحه اصلی</q-item-section>
+        </q-item>
+      </q-list>
+
+      <q-list class="q-my-lg q-mx-sm" :horizontal-thumb-style="{ opacity: 0 }">
+        <q-item to="/classes" class="q-my-sm" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="graphic_eq" />
+          </q-item-section>
+
+          <q-item-section>لالایی ها</q-item-section>
+        </q-item>
+      </q-list>
+
+      <q-list class="q-my-lg q-mx-sm" :horizontal-thumb-style="{ opacity: 0 }">
+        <q-item to="/classes" class="q-my-sm" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="book" />
+          </q-item-section>
+
+          <q-item-section>داستان ها</q-item-section>
+        </q-item>
+      </q-list>
+
+      <q-list class="q-my-lg q-mx-sm" :horizontal-thumb-style="{ opacity: 0 }">
+        <q-item to="/classes" class="q-my-sm" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="person" />
+          </q-item-section>
+
+          <q-item-section>پروفایل</q-item-section>
+        </q-item>
+      </q-list>
+
+      <div
+        class="absolute-bottom q-ma-md flex justify-center content-center align-center"
+      >
+        <q-btn
+          round
+          unelevated
+          color="red"
+          icon="chevron_left"
+          @click="toggleLeftDrawer"
+        />
+      </div>
     </q-drawer>
 
     <q-page-container class="bg-primary q-pa-md">
@@ -31,26 +81,27 @@
         class="bg-white text-grey-5 bg52 q-ma-md q-py-md flex justify-around"
       >
         <q-btn
-          name="explore"
-          icon="explore"
-          style="font-size: 16px"
+          name="home"
+          icon="home"
+          style="font-size: 18px"
           no-caps
           flat
+          to="/"
         />
 
         <q-btn
-          name="library"
-          icon="library_books"
-          style="font-size: 16px"
+          name="lalaies_list"
+          icon="graphic_eq"
+          style="font-size: 18px"
           to="/all-stories"
           no-caps
           flat
         />
 
         <q-btn
-          name="like"
-          icon="thumb_up"
-          style="font-size: 16px"
+          name="stories_list"
+          icon="book"
+          style="font-size: 18px"
           to="/all-lalaies"
           no-caps
           flat
@@ -59,7 +110,7 @@
         <q-btn
           name="profile"
           icon="person"
-          style="font-size: 16px"
+          style="font-size: 18px"
           to="/dashboard"
           no-caps
           flat
@@ -70,6 +121,23 @@
 </template>
 
 <script>
+import { ref } from "vue";
+
+export default {
+  setup() {
+    const leftDrawerOpen = ref(false);
+
+    return {
+      leftDrawerOpen,
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
+      },
+    };
+  },
+};
+</script>
+
+<!-- <script>
 import { ref, computed, onBeforeMount } from "vue";
 import { api } from "src/boot/axios";
 import { useRouter } from "vue-router";
@@ -212,4 +280,4 @@ export default {
     };
   },
 };
-</script>
+</script> -->

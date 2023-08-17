@@ -175,7 +175,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .r11 {
   border-radius: 11px;
 }
