@@ -10,7 +10,7 @@
     <div class="space full-width">
       <q-separator color="grey-6" size="4px" class="q-mb-md" />
 
-      <div class="font-13 text-weight-bold">Your Stories</div>
+      <div class="font-13 text-weight-bold q-ml-md">Your Stories</div>
 
       <q-dialog v-model="showStory">
         <q-card class="my-card bg-primary" flat bordered>
@@ -74,7 +74,7 @@
 
       <q-separator color="grey-6" size="4px" class="q-my-md" />
 
-      <div class="font-13 text-weight-bold">Your Lalaies</div>
+      <div class="font-13 text-weight-bold q-ml-md">Your Lalaies</div>
 
       <q-dialog v-model="showLalaey">
         <q-card class="my-card bg-primary" flat bordered>
