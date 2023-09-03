@@ -142,6 +142,13 @@ export default {
 };
 </script>
 
+<style scoped>
+.q-item.q-router-link--active,
+.q-item--active {
+  color: black;
+}
+</style>
+
 <!-- <script>
 import { ref, computed, onBeforeMount } from "vue";
 import { api } from "src/boot/axios";
