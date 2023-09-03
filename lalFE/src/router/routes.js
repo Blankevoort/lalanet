@@ -10,6 +10,16 @@ const routes = [
     ],
   },
   {
+    path: "/intro",
+    component: () => import("layouts/EmptyLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("src/pages/Main Pages/IntroPage.vue"),
+      },
+    ],
+  },
+  {
     path: "/all-lalaies",
     component: () => import("layouts/LalaiesLayout.vue"),
     children: [

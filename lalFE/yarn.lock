@@ -1137,10 +1137,10 @@
     vite "2.9.13"
     webpack-merge "^5.8.0"
 
-"@quasar/cli@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@quasar/cli/-/cli-2.2.2.tgz#e1d8b72d9d958447be4f0004bde724c960ce9866"
-  integrity sha512-FKjhzCMjtIz/6F2qs4SPLvXa5J5zcqscYqZoITV/5BFI2TOiFgaC6RQIi0x0GYj7S4vWSDzElykiUjAX2AAknA==
+"@quasar/cli@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@quasar/cli/-/cli-2.2.3.tgz#d68e59e8821d8f0b57aabea5577787d0a4ac3641"
+  integrity sha512-mDLq/LICFbW7sIYte1DyJrBe55LPuYXPYydhQS0Mfjcaob9JuE7o2lDtT+cUwvEwOVYmcDMSg8dNhIqB+wwxjw==
   dependencies:
     "@quasar/ssl-certificate" "^1.0.0"
     ci-info "^3.8.0"
