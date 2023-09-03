@@ -1,23 +1,22 @@
 <template>
   <q-layout view="hHh lpR lFf">
-
     <q-header class="bg4 text-black q-pa-md">
       <div class="row justify-between">
         <q-avatar class="bg2">
-          <img src="/Images/profile-image.png" class="absolute-center" alt="pfp">
+          <img
+            src="/Images/profile-image.png"
+            class="absolute-center"
+            alt="pfp"
+          />
         </q-avatar>
 
         <div class="font-16 text-weight-bold q-mt-sm">Lalaies</div>
 
-        <q-btn flat>
+        <q-btn to="/" flat>
           <q-icon name="arrow_back" />
         </q-btn>
       </div>
     </q-header>
-
-    <q-drawer v-model="leftDrawerOpen" side="left" behavior="mobile" elevated>
-      <!-- drawer content -->
-    </q-drawer>
 
     <q-page-container class="bg-primary">
       <router-view />
@@ -27,69 +26,70 @@
 
 <script>
 import { ref, computed, onBeforeMount } from "vue";
-import { api } from 'src/boot/axios';
-import { useRouter } from 'vue-router';
+import { api } from "src/boot/axios";
+import { useRouter } from "vue-router";
 
-import { currentLalai } from 'stores/appData';
-import { storeToRefs } from 'pinia';
+import { currentLalai } from "stores/appData";
+import { storeToRefs } from "pinia";
 
 export default {
-  name: 'SecondaryLayout',
+  name: "SecondaryLayout",
   setup() {
-    const caris = ref([])
-    const search = ref('')
-    const userinfo = ref([])
+    const caris = ref([]);
+    const search = ref("");
+    const userinfo = ref([]);
     const router = useRouter();
     const store = currentLalai();
-    const userRegistered = ref(false)
-    const matchingLalaiNames = ref(false)
+    const userRegistered = ref(false);
+    const matchingLalaiNames = ref(false);
     const current = computed(() => store.current);
     const setCurrent = (data) => store.setCurrent(data);
     const showCurrent = computed(() => store.showCurrent);
-    const auth = ref(true)
-    const email = ref("")
-    const username = ref("")
-    const password = ref("")
-    const toggle = ref(false)
-    const leftDrawerOpen = ref(false)
+    const auth = ref(true);
+    const email = ref("");
+    const username = ref("");
+    const password = ref("");
+    const toggle = ref(false);
+    const leftDrawerOpen = ref(false);
 
     function fetchUserData() {
-      api.get('api/user')
-        .then(r => {
-          userinfo.value = r.data;
-          userRegistered.value = true
-        })
+      api.get("api/user").then((r) => {
+        userinfo.value = r.data;
+        userRegistered.value = true;
+      });
     }
 
     function searchLalaey() {
-      fetch('http://127.0.0.1:8000/api/lalaies/search?q=' + search.value)
-        .then(res => res.json())
-        .then(res => {
+      fetch("http://127.0.0.1:8000/api/lalaies/search?q=" + search.value)
+        .then((res) => res.json())
+        .then((res) => {
           caris.value = res;
-          search.value = '';
+          search.value = "";
           matchingLalaiNames.value = true;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
-        })
+        });
     }
 
     function logout() {
-      api.post('/api/logout')
-        .then(localStorage.removeItem('token'))
-        .then(window.location.reload())
+      api
+        .post("/api/logout")
+        .then(localStorage.removeItem("token"))
+        .then(window.location.reload());
     }
 
     onBeforeMount(() => {
-      fetchUserData()
-    })
+      fetchUserData();
+    });
 
     function register() {
-      api.post("api/register", {
-        name: username.value,
-        email: email.value,
-      })
-        .then(r => {
+      api
+        .post("api/register", {
+          name: username.value,
+          email: email.value,
+        })
+        .then((r) => {
           if (r.data.status == true) {
             toggle.value = false;
             $q.notify({
@@ -103,42 +103,43 @@ export default {
             });
           }
         })
-        .catch(err => {
+        .catch((err) => {
           error.value = err;
         });
     }
 
     function toggleAuth() {
       if (auth.value === true) {
-        auth.value = false
+        auth.value = false;
       } else {
-        auth.value = true
+        auth.value = true;
       }
     }
 
     function toggleAuthForm() {
       if (toggle.value === true) {
-        toggle.value = false
+        toggle.value = false;
       } else {
-        toggle.value = true
+        toggle.value = true;
       }
     }
 
     function login() {
-      api.post("api/login", {
-        email: email.value,
-        password: password.value,
-      })
-        .then(r => {
+      api
+        .post("api/login", {
+          email: email.value,
+          password: password.value,
+        })
+        .then((r) => {
           if (r.data.data.token) {
             localStorage.setItem("token", r.data.data.token);
             toggle.value = false;
             location.reload();
           }
         })
-        .catch(err => {
+        .catch((err) => {
           error.value = err;
-        })
+        });
     }
 
     return {
@@ -161,14 +162,14 @@ export default {
       toggleAuthForm,
       leftDrawerOpen,
       toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value
+        leftDrawerOpen.value = !leftDrawerOpen.value;
       },
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 .YL
   &__toolbar-input-container
     min-width: 100px
@@ -182,16 +183,16 @@ export default {
     width: 100%
 </style>
 
-<style>
+<style scoped>
 .mt-xl {
   margin-top: 59px;
 }
 
-#q-app>div>header {
+#q-app > div > header {
   position: absolute;
 }
 
-#q-app>div>footer {
+#q-app > div > footer {
   position: absolute;
 }
 </style>

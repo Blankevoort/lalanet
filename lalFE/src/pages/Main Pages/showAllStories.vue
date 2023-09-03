@@ -1,9 +1,8 @@
 <template>
   <q-page>
-    <img class="my-img bg5" src="/Images/letters.png">
+    <img class="my-img bg5 full-width" src="/Images/letters.png" />
 
     <div class="full-width absolute-bottom pageBttom q-pt-md">
-
       <q-list class="bg-primary">
         <q-item clickable v-ripple>
           <q-item-section avatar>
@@ -79,36 +78,35 @@
         </q-item>
       </q-list>
     </div>
-
   </q-page>
 </template>
 
 <script>
 import { ref, onMounted, computed } from "vue";
-import { api } from 'src/boot/axios';
+import { api } from "src/boot/axios";
 
-import { currentStory } from 'stores/theStory';
-import { storeToRefs } from 'pinia';
+import { currentStory } from "stores/theStory";
+import { storeToRefs } from "pinia";
 export default {
   setup() {
     const store = currentStory();
     const theStory = computed(() => store.theStory);
     const setCurrentStory = (data) => store.setCurrentStory(data);
     const showCurrentStory = computed(() => store.showCurrentStory);
-    const stories = ref([])
-    const storeStory = currentStory()
+    const stories = ref([]);
+    const storeStory = currentStory();
     const current = computed(() => storeStory.theStory);
-    const show = ref(false)
+    const show = ref(false);
 
     function fetchStoris() {
-      api.get("api/stories").then(r => {
+      api.get("api/stories").then((r) => {
         stories.value = r.data;
       });
     }
 
     onMounted(() => {
-      fetchStoris()
-    })
+      fetchStoris();
+    });
 
     return {
       show,
@@ -127,7 +125,6 @@ export default {
 
 .my-img {
   position: absolute;
-  width: 390px;
   height: 387px;
   left: 0px;
 }
@@ -136,7 +133,7 @@ export default {
   position: absolute;
   height: 452px;
 
-  background: #F0F4F9;
+  background: #f0f4f9;
   border-top-left-radius: 35px;
   border-top-right-radius: 35px;
 }

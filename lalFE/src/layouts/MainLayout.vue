@@ -6,7 +6,7 @@
         <q-toolbar-title class="font-16 text-center">
           سلام <span class="text-weight-bold">آدام</span>
         </q-toolbar-title>
-        <q-avatar class="bg2">
+        <q-avatar class="bg2" @click="$router.push('/dashboard')">
           <img
             src="/Images/profile-image.png"
             class="absolute-center"
@@ -16,9 +16,14 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer class="text-center" v-model="leftDrawerOpen" side="left" behavior="mobile">
+    <q-drawer
+      class="text-center"
+      v-model="leftDrawerOpen"
+      side="left"
+      behavior="mobile"
+    >
       <q-list class="q-my-lg q-mx-sm" :horizontal-thumb-style="{ opacity: 0 }">
-        <q-item to="/classes" class="q-my-sm" clickable v-ripple>
+        <q-item to="/" class="q-my-sm" clickable v-ripple>
           <q-item-section avatar>
             <q-icon name="home" />
           </q-item-section>
@@ -28,7 +33,7 @@
       </q-list>
 
       <q-list class="q-my-lg q-mx-sm" :horizontal-thumb-style="{ opacity: 0 }">
-        <q-item to="/classes" class="q-my-sm" clickable v-ripple>
+        <q-item to="/all-lalaies" class="q-my-sm" clickable v-ripple>
           <q-item-section avatar>
             <q-icon name="graphic_eq" />
           </q-item-section>
@@ -38,7 +43,7 @@
       </q-list>
 
       <q-list class="q-my-lg q-mx-sm" :horizontal-thumb-style="{ opacity: 0 }">
-        <q-item to="/classes" class="q-my-sm" clickable v-ripple>
+        <q-item to="/all-stories" class="q-my-sm" clickable v-ripple>
           <q-item-section avatar>
             <q-icon name="book" />
           </q-item-section>
@@ -48,7 +53,7 @@
       </q-list>
 
       <q-list class="q-my-lg q-mx-sm" :horizontal-thumb-style="{ opacity: 0 }">
-        <q-item to="/classes" class="q-my-sm" clickable v-ripple>
+        <q-item to="/dashboard" class="q-my-sm" clickable v-ripple>
           <q-item-section avatar>
             <q-icon name="person" />
           </q-item-section>
@@ -64,7 +69,7 @@
           round
           unelevated
           color="red"
-          icon="chevron_left"
+          icon="chevron_right"
           @click="toggleLeftDrawer"
         />
       </div>
@@ -91,7 +96,7 @@
 
         <q-btn
           name="lalaies_list"
-          icon="graphic_eq"
+          icon="book"
           style="font-size: 18px"
           to="/all-stories"
           no-caps
@@ -100,7 +105,7 @@
 
         <q-btn
           name="stories_list"
-          icon="book"
+          icon="graphic_eq"
           style="font-size: 18px"
           to="/all-lalaies"
           no-caps

@@ -11,7 +11,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .r45-top {
   border-top-left-radius: 45px;
   border-top-right-radius: 45px;

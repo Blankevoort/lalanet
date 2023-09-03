@@ -47,7 +47,10 @@
     </div>
 
     <div class="q-mt-xl q-mb-sm row justify-between">
-      <q-card class="bg4 round15 card text-center col-6">
+      <q-card
+        class="bg4 round15 card text-center col-6"
+        @click="$router.push('/intro')"
+      >
         <div class="absolute-center">
           <img class="my-img" src="/Images/introduction.png" />
         </div>
@@ -57,7 +60,10 @@
         </q-card-section>
       </q-card>
 
-      <q-card class="bg5 round15 card text-center col-6">
+      <q-card
+        class="bg5 round15 card text-center col-6"
+        @click="$router.push('/all-stories')"
+      >
         <div class="absolute-center">
           <img class="my-img q-mb-sm" src="/Images/letters.png" />
         </div>
@@ -70,6 +76,7 @@
       <q-card
         style="background-color: #d5f8e5"
         class="round15 card text-center col-6 q-mt-md"
+        @click="$router.push('/all-lalaies')"
       >
         <div class="absolute-center">
           <img class="my-img q-mb-md" src="/Images/Lalaies.png" />
@@ -81,8 +88,9 @@
       </q-card>
 
       <q-card
-        style="background-color: #edfaff"
+        style="background-color: #fff3d1"
         class="round15 card text-center col-6 q-mt-md"
+        @click="$router.push('/dashboard')"
       >
         <div class="absolute-center">
           <img class="my-img q-mb-md" src="/Images/profile.png" />
