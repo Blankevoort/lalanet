@@ -1,16 +1,25 @@
 <template>
   <q-page>
-    <div class="top full-width"></div>
-
-    <div class="pfp">
-      <q-img class="absolute-center" src="/Images/profile-image.png" />
+    <div class="top full-width text-center">
+      <div class="row justify-center">
+        <div class="justify-center" style="margin-top: 145px">
+          <div class="pfp">
+            <q-img class="" src="/Images/profile-image.png" />
+          </div>
+          <div
+            class="username q-mt-sm text-center text-weight-bold"
+            style="font-size: 18px"
+          >
+            نام کاربری
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="username q-mt-sm">Username</div>
 
     <div class="space full-width">
       <q-separator color="grey-6" size="4px" class="q-mb-md" />
 
-      <div class="font-13 text-weight-bold q-ml-md">Your Stories</div>
+      <div class="font-14 text-weight-bold q-ml-md">داستان های شما</div>
 
       <q-dialog v-model="showStory">
         <q-card class="my-card bg-primary" flat bordered>
@@ -74,7 +83,7 @@
 
       <q-separator color="grey-6" size="4px" class="q-my-md" />
 
-      <div class="font-13 text-weight-bold q-ml-md">Your Lalaies</div>
+      <div class="font-14 text-weight-bold q-ml-md">لالایی های شما</div>
 
       <q-dialog v-model="showLalaey">
         <q-card class="my-card bg-primary" flat bordered>
@@ -226,35 +235,20 @@ export default {
 }
 
 .top {
-  position: absolute;
-  height: 198px;
+  position: relative;
+  height: 200px;
 
   background: #64dddd;
 }
 
 .pfp {
-  position: absolute;
+  position: relative;
   width: 125px;
   height: 125px;
-  left: 130px;
-  top: 130px;
   background: #bbecfe;
   border: 5px solid #ffffff;
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
   border-radius: 50%;
-}
-
-.username {
-  position: absolute;
-  width: 102px;
-  height: 38px;
-  left: 144px;
-  top: 260px;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 24px;
-  text-align: center;
-  color: #000000;
 }
 
 .space {
