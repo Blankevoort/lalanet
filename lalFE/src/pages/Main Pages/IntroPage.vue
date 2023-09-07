@@ -4,7 +4,7 @@
   >
     <swiper :pagination="true" :modules="modules">
       <swiper-slide
-        class="row justify-center align-center items-center content-center text-center"
+        class="row justify-center align-center items-center content-center text-center q-mt-lg"
       >
         <div class="col-12 text-h4">لالانینی چیه؟</div>
         <div class="col-12 q-mt-md" style="width: 250px; font-size: 15px">
@@ -14,7 +14,7 @@
       </swiper-slide>
 
       <swiper-slide
-        class="row justify-center align-center items-center content-center text-center"
+        class="row justify-center align-center items-center content-center text-center q-mt-lg"
       >
         <div class="col-12 text-h4">چیکارا میکنه؟</div>
         <div class="col-12 q-mt-md" style="width: 250px">
