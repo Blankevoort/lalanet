@@ -2,7 +2,7 @@
   <q-page>
     <div class="top full-width text-center">
       <div class="row justify-center">
-        <div class="justify-center" style="margin-top: 145px">
+        <div class="SlideInFromTop" style="margin-top: 135px">
           <div class="pfp">
             <q-img class="" src="/Images/profile-image.png" />
           </div>
@@ -51,7 +51,7 @@
         </q-card>
       </q-dialog>
 
-      <q-list class="bg-primary" @click="toggleShowStory()">
+      <q-list class="SlideInFromRight" @click="toggleShowStory()">
         <q-item clickable v-ripple>
           <q-item-section avatar>
             <q-avatar size="75px" color="indigo-4" class="r11">
@@ -66,7 +66,7 @@
         </q-item>
       </q-list>
 
-      <q-list class="bg-primary" @click="toggleShowStory()">
+      <q-list class="SlideInFromRight" @click="toggleShowStory()">
         <q-item clickable v-ripple>
           <q-item-section avatar>
             <q-avatar size="75px" color="indigo-4" class="r11">
@@ -116,7 +116,7 @@
       </q-dialog>
 
       <div class="full-width q-pt-md">
-        <q-list class="bg-primary" @click="toggleShowLalaey()">
+        <q-list class="SlideInFromRight" @click="toggleShowLalaey()">
           <q-item clickable v-ripple>
             <q-item-section avatar>
               <q-avatar size="75px" color="indigo-4" class="r11">
@@ -235,7 +235,6 @@ export default {
 }
 
 .top {
-  position: relative;
   height: 200px;
 
   background: #64dddd;
@@ -255,5 +254,37 @@ export default {
   position: absolute;
   width: 340px;
   top: 352px;
+}
+
+@keyframes SlideInRight {
+  from {
+    transform: translateX(300px);
+  }
+
+  to {
+    transform: translateX(0px);
+  }
+}
+
+.SlideInFromRight {
+  animation-name: SlideInRight;
+  animation-duration: 2s;
+  animation-timing-function: ease-in;
+}
+
+@keyframes SlideInTop {
+  from {
+    transform: translateY(-450px);
+  }
+
+  to {
+    transform: translateY(0px);
+  }
+}
+
+.SlideInFromTop {
+  animation-name: SlideInTop;
+  animation-duration: 2s;
+  animation-timing-function: ease-in;
 }
 </style>

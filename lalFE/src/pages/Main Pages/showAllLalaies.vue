@@ -3,127 +3,7 @@
     <img class="my-img bg4 full-width" src="/Images/introduction.png" />
 
     <div class="full-width absolute-bottom pageBttom q-pt-md">
-      <q-list class="bg-primary">
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-avatar size="75px" color="indigo-2" class="r11">
-              <q-icon color="white" name="star" />
-            </q-avatar>
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>The Happy Boy</q-item-label>
-            <q-item-label caption lines="1">Category: TK</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-
-      <q-list class="bg-primary">
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-avatar size="75px" color="indigo-2" class="r11">
-              <q-icon color="white" name="star" />
-            </q-avatar>
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>The Happy Boy</q-item-label>
-            <q-item-label caption lines="1">Category: TK</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-
-      <q-list class="bg-primary">
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-avatar size="75px" color="indigo-2" class="r11">
-              <q-icon color="white" name="star" />
-            </q-avatar>
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>The Happy Boy</q-item-label>
-            <q-item-label caption lines="1">Category: TK</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-
-      <q-list class="bg-primary">
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-avatar size="75px" color="indigo-2" class="r11">
-              <q-icon color="white" name="star" />
-            </q-avatar>
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>The Happy Boy</q-item-label>
-            <q-item-label caption lines="1">Category: TK</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-
-      <q-list class="bg-primary">
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-avatar size="75px" color="indigo-2" class="r11">
-              <q-icon color="white" name="star" />
-            </q-avatar>
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>The Happy Boy</q-item-label>
-            <q-item-label caption lines="1">Category: TK</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-
-      <q-list class="bg-primary">
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-avatar size="75px" color="indigo-2" class="r11">
-              <q-icon color="white" name="star" />
-            </q-avatar>
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>The Happy Boy</q-item-label>
-            <q-item-label caption lines="1">Category: TK</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-
-      <q-list class="bg-primary">
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-avatar size="75px" color="indigo-2" class="r11">
-              <q-icon color="white" name="star" />
-            </q-avatar>
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>The Happy Boy</q-item-label>
-            <q-item-label caption lines="1">Category: TK</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-
-      <q-list class="bg-primary">
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-avatar size="75px" color="indigo-2" class="r11">
-              <q-icon color="white" name="star" />
-            </q-avatar>
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>The Happy Boy</q-item-label>
-            <q-item-label caption lines="1">Category: TK</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-
-      <q-list class="bg-primary">
+      <q-list class="bg-primary SlideInFromRight">
         <q-item clickable v-ripple>
           <q-item-section avatar>
             <q-avatar size="75px" color="indigo-2" class="r11">
@@ -190,5 +70,21 @@ export default {
   background: #f0f4f9;
   border-top-left-radius: 35px;
   border-top-right-radius: 35px;
+}
+
+@keyframes SlideInRight {
+  from {
+    transform: translateX(300px);
+  }
+
+  to {
+    transform: translateX(0px);
+  }
+}
+
+.SlideInFromRight {
+  animation-name: SlideInRight;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
 }
 </style>

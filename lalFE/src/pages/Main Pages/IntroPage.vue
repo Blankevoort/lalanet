@@ -35,7 +35,13 @@
         </div>
         <div class="col-12 q-mt-lg">
           <q-btn color="warning" class="q-mx-md" to="/" label="حالت مهمان" />
-          <q-btn color="accent" class="q-mx-md" to="/login" label="ورود" />
+          <q-btn
+            outline
+            color="accent"
+            class="q-mx-md"
+            to="/login"
+            label="ورود"
+          />
         </div>
       </swiper-slide>
     </swiper>

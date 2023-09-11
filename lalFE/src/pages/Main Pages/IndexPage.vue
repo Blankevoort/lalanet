@@ -16,8 +16,8 @@
     </div>
 
     <div class="q-mt-xl">
-      <div class="font-15 text-weight-bold">موضوعات</div>
-      <div class="q-mt-md">
+      <div class="font-15 text-weight-bold SlideInFromTop">موضوعات</div>
+      <div class="q-mt-md SlideInFromTop">
         <q-card
           class="bg7 round14 row wrap justify-between items-center content-center"
           style="height: 155px;!important"
@@ -55,7 +55,7 @@
     >
       <q-card
         style="width: 140px; height: 140px"
-        class="bg4 round15 text-center col-6"
+        class="bg4 round15 text-center col-6 SlideInFromRight"
         @click="$router.push('/intro')"
       >
         <div class="absolute-center">
@@ -69,7 +69,7 @@
 
       <q-card
         style="width: 140px; height: 140px"
-        class="bg5 round15 text-center col-6"
+        class="bg5 round15 text-center col-6 SlideInFromRight"
         @click="$router.push('/all-stories')"
       >
         <div class="absolute-center">
@@ -83,7 +83,7 @@
 
       <q-card
         style="background-color: #d5f8e5; width: 140px; height: 140px"
-        class="round15 text-center col-6 q-mt-md"
+        class="round15 text-center col-6 SlideInFromRight q-mt-md"
         @click="$router.push('/all-lalaies')"
       >
         <div class="absolute-center">
@@ -97,7 +97,7 @@
 
       <q-card
         style="background-color: #fff3d1; width: 140px; height: 140px"
-        class="round15 text-center col-6 q-mt-md"
+        class="round15 text-center col-6 SlideInFromRight q-mt-md"
         @click="$router.push('/dashboard')"
       >
         <div class="absolute-center">
@@ -163,5 +163,37 @@ export default {
 .btn {
   width: 100px !important;
   height: 38px !important;
+}
+
+@keyframes SlideInRight {
+  from {
+    transform: translateX(300px);
+  }
+
+  to {
+    transform: translateX(0px);
+  }
+}
+
+.SlideInFromRight {
+  animation-name: SlideInRight;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+}
+
+@keyframes SlideInTop {
+  from {
+    transform: translateY(-450px);
+  }
+
+  to {
+    transform: translateY(0px);
+  }
+}
+
+.SlideInFromTop {
+  animation-name: SlideInTop;
+  animation-duration: 2s;
+  animation-timing-function: ease-in;
 }
 </style>
