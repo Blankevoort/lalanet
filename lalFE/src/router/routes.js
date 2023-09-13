@@ -78,6 +78,19 @@ const routes = [
     //   requireAuth: true,
     // },
   },
+  {
+    path: "/login",
+    component: () => import("layouts/DashboardLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("src/pages/Forms/LoginPage.vue"),
+      },
+    ],
+    // meta: {
+    //   requireAuth: true,
+    // },
+  },
 
   {
     path: "/:catchAll(.*)*",

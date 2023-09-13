@@ -4,7 +4,7 @@
 
     <div class="full-width absolute-bottom pageBttom q-pt-md">
       <q-list class="bg-primary SlideInFromRight">
-        <q-item clickable v-ripple>
+        <q-item v-for="story in stories" :key="story.id" clickable v-ripple>
           <q-item-section avatar>
             <q-avatar size="75px" color="indigo-2" class="r11">
               <q-icon color="white" name="menu_book" />
@@ -12,8 +12,8 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label>The Happy Boy</q-item-label>
-            <q-item-label caption lines="1">Aurhor: Username</q-item-label>
+            <q-item-label style="font-size: 18px">The Happy Boy</q-item-label>
+            <!-- <q-item-label caption lines="1">Aurhor: Username</q-item-label> -->
           </q-item-section>
         </q-item>
       </q-list>
@@ -33,13 +33,14 @@ export default {
     const theStory = computed(() => store.theStory);
     const setCurrentStory = (data) => store.setCurrentStory(data);
     const showCurrentStory = computed(() => store.showCurrentStory);
-    const stories = ref([]);
     const storeStory = currentStory();
     const current = computed(() => storeStory.theStory);
     const show = ref(false);
 
+    const stories = ref([]);
+
     function fetchStoris() {
-      api.get("api/stories").then((r) => {
+      api.get("/api/stories").then((r) => {
         stories.value = r.data;
       });
     }

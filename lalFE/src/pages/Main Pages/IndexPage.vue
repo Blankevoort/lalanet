@@ -68,22 +68,8 @@
       </q-card>
 
       <q-card
-        style="width: 140px; height: 140px"
-        class="bg5 round15 text-center col-6 SlideInFromRight"
-        @click="$router.push('/all-stories')"
-      >
-        <div class="absolute-center">
-          <img class="my-img q-mb-sm" src="/Images/letters.png" />
-        </div>
-
-        <q-card-section class="absolute-bottom q-mb-xs">
-          <div class="font-13 text-weight-bold">داستان ها</div>
-        </q-card-section>
-      </q-card>
-
-      <q-card
         style="background-color: #d5f8e5; width: 140px; height: 140px"
-        class="round15 text-center col-6 SlideInFromRight q-mt-md"
+        class="round15 text-center col-6 SlideInFromRight"
         @click="$router.push('/all-lalaies')"
       >
         <div class="absolute-center">
@@ -92,6 +78,20 @@
 
         <q-card-section class="absolute-bottom q-mb-xs">
           <div class="font-13 text-weight-bold">لالایی ها</div>
+        </q-card-section>
+      </q-card>
+
+      <q-card
+        style="width: 140px; height: 140px"
+        class="bg5 round15 text-center col-6 SlideInFromRight q-mt-md"
+        @click="$router.push('/all-stories')"
+      >
+        <div class="absolute-center">
+          <img class="my-img q-mb-sm" src="/Images/letters.png" />
+        </div>
+
+        <q-card-section class="absolute-bottom q-mb-xs">
+          <div class="font-13 text-weight-bold">داستان ها</div>
         </q-card-section>
       </q-card>
 

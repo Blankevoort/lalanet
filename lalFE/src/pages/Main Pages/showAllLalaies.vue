@@ -4,7 +4,7 @@
 
     <div class="full-width absolute-bottom pageBttom q-pt-md">
       <q-list class="bg-primary SlideInFromRight">
-        <q-item clickable v-ripple>
+        <q-item v-for="lalaey in lalaies" :key="lalaey.id" clickable v-ripple>
           <q-item-section avatar>
             <q-avatar size="75px" color="indigo-2" class="r11">
               <q-icon color="white" name="star" />
@@ -12,8 +12,10 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label>The Happy Boy</q-item-label>
-            <q-item-label caption lines="1">Category: TK</q-item-label>
+            <q-item-label style="font-size: 18px">{{
+              lalaey.Name
+            }}</q-item-label>
+            <!-- <q-item-label caption lines="1">Category: TK</q-item-label> -->
           </q-item-section>
         </q-item>
       </q-list>
@@ -33,10 +35,13 @@ export default {
     const current = computed(() => store.current);
     const setCurrent = (data) => store.setCurrent(data);
     const showCurrent = computed(() => store.showCurrent);
+
     const lalaies = ref([]);
+
     function fetchLalaies() {
-      api.get("http://127.0.0.1:8000/api/lalaies").then((r) => {
+      api.get("/api/lalaies").then((r) => {
         lalaies.value = r.data;
+        console.log(r.data);
       });
     }
 
@@ -65,7 +70,7 @@ export default {
 
 .pageBttom {
   position: absolute;
-  height: 452px;
+  height: 450px;
 
   background: #f0f4f9;
   border-top-left-radius: 35px;

@@ -1,8 +1,10 @@
 <template>
   <q-layout view="hHh lpR lFf">
-    <q-header class="bg-primary text-black q-pa-md absolute">
+    <q-header
+      v-if="userRegistered"
+      class="bg-primary text-black q-pa-md absolute"
+    >
       <q-toolbar>
-        <q-btn flat round dense icon="menu" @click="toggleLeftDrawer" />
         <q-toolbar-title class="font-16 text-center">
           سلام <span class="text-weight-bold">آدام</span>
         </q-toolbar-title>
@@ -14,6 +16,25 @@
           />
         </q-avatar>
       </q-toolbar>
+    </q-header>
+
+    <q-header v-else class="bg-primary text-black q-pa-md absolute">
+      <q-btn
+        class="float-left"
+        flat
+        round
+        dense
+        icon="menu"
+        @click="toggleLeftDrawer"
+      />
+
+      <q-btn
+        outline
+        color="secondary"
+        class="float-right"
+        to="/login"
+        label="ورود"
+      />
     </q-header>
 
     <q-drawer
@@ -126,30 +147,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
-
-export default {
-  setup() {
-    const leftDrawerOpen = ref(false);
-
-    return {
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
-    };
-  },
-};
-</script>
-
-<style scoped>
-.q-item.q-router-link--active,
-.q-item--active {
-  color: black;
-}
-</style>
-
-<!-- <script>
 import { ref, computed, onBeforeMount } from "vue";
 import { api } from "src/boot/axios";
 import { useRouter } from "vue-router";
@@ -158,7 +155,6 @@ import { currentLalai } from "stores/appData";
 import { storeToRefs } from "pinia";
 
 export default {
-  name: "MyLayout",
   setup() {
     const caris = ref([]);
     const search = ref("");
@@ -178,7 +174,8 @@ export default {
     const leftDrawerOpen = ref(false);
 
     function fetchUserData() {
-      api.get("api/user").then((r) => {
+      api.get("/api/user").then((r) => {
+        console.log(r.data);
         userinfo.value = r.data;
         userRegistered.value = true;
       });
@@ -292,4 +289,11 @@ export default {
     };
   },
 };
-</script> -->
+</script>
+
+<style scoped>
+.q-item.q-router-link--active,
+.q-item--active {
+  color: black;
+}
+</style>
