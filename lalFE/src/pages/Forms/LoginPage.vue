@@ -52,6 +52,13 @@
           />
         </div>
       </q-form>
+      <q-btn
+        class="q-mt-md"
+        color="blue-6"
+        label="حساب کاربری ندارید؟"
+        flat
+        to="/register"
+      />
     </div>
   </q-page>
 </template>

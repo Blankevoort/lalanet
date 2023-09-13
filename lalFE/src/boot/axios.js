@@ -9,8 +9,8 @@ import axios from "axios";
 // for each client)
 const api = axios.create({ baseURL: "http://127.0.0.1:8000/" });
 api.defaults.headers = {
-  Authorization: "Token " + localStorage.getItem("token"),
-};
+  Authorization: 'Bearer ' + localStorage.getItem('token')
+}
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api

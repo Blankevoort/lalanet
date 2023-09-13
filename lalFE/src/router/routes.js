@@ -91,6 +91,19 @@ const routes = [
     //   requireAuth: true,
     // },
   },
+  {
+    path: "/register",
+    component: () => import("layouts/DashboardLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("src/pages/Forms/RegisterPage.vue"),
+      },
+    ],
+    // meta: {
+    //   requireAuth: true,
+    // },
+  },
 
   {
     path: "/:catchAll(.*)*",

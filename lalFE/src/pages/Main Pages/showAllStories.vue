@@ -12,7 +12,10 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label style="font-size: 18px">The Happy Boy</q-item-label>
+            <q-item-label>{{ story.name }}</q-item-label>
+            <q-item-label caption lines="1"
+              >Author: {{ story.user.name }}</q-item-label
+            >
             <!-- <q-item-label caption lines="1">Aurhor: Username</q-item-label> -->
           </q-item-section>
         </q-item>

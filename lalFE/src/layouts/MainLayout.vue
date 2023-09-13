@@ -5,6 +5,7 @@
       class="bg-primary text-black q-pa-md absolute"
     >
       <q-toolbar>
+        <q-btn flat round dense icon="menu" @click="toggleLeftDrawer" />
         <q-toolbar-title class="font-16 text-center">
           سلام <span class="text-weight-bold">آدام</span>
         </q-toolbar-title>
@@ -63,7 +64,11 @@
         </q-item>
       </q-list>
 
-      <q-list class="q-my-lg q-mx-sm" :horizontal-thumb-style="{ opacity: 0 }">
+      <q-list
+        class="q-my-lg q-mx-sm"
+        v-if="userRegistered"
+        :horizontal-thumb-style="{ opacity: 0 }"
+      >
         <q-item to="/all-stories" class="q-my-sm" clickable v-ripple>
           <q-item-section avatar>
             <q-icon name="book" />
@@ -73,7 +78,11 @@
         </q-item>
       </q-list>
 
-      <q-list class="q-my-lg q-mx-sm" :horizontal-thumb-style="{ opacity: 0 }">
+      <q-list
+        class="q-my-lg q-mx-sm"
+        v-if="userRegistered"
+        :horizontal-thumb-style="{ opacity: 0 }"
+      >
         <q-item to="/dashboard" class="q-my-sm" clickable v-ripple>
           <q-item-section avatar>
             <q-icon name="person" />
@@ -175,7 +184,6 @@ export default {
 
     function fetchUserData() {
       api.get("/api/user").then((r) => {
-        console.log(r.data);
         userinfo.value = r.data;
         userRegistered.value = true;
       });

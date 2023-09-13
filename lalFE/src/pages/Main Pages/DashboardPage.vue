@@ -51,39 +51,35 @@
         </q-card>
       </q-dialog>
 
-      <q-list class="SlideInFromRight" @click="toggleShowStory()">
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-avatar size="75px" color="indigo-4" class="r11">
-              <q-icon color="white" name="menu_book" />
-            </q-avatar>
-          </q-item-section>
+      <div v-if="stories">
+        <q-list
+          v-for="story in stories"
+          :key="story.id"
+          class="SlideInFromRight"
+          @click="toggleShowStory()"
+        >
+          <q-item clickable v-ripple>
+            <q-item-section avatar>
+              <q-avatar size="75px" color="indigo-4" class="r11">
+                <q-icon color="white" name="menu_book" />
+              </q-avatar>
+            </q-item-section>
 
-          <q-item-section>
-            <q-item-label>The Happy Boy</q-item-label>
-            <q-item-label caption lines="1">Author: Username</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
+            <q-item-section>
+              <q-item-label>{{ story.name }}</q-item-label>
+              <q-item-label caption lines="1">شما</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </div>
 
-      <q-list class="SlideInFromRight" @click="toggleShowStory()">
-        <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-avatar size="75px" color="indigo-4" class="r11">
-              <q-icon color="white" name="menu_book" />
-            </q-avatar>
-          </q-item-section>
-
-          <q-item-section>
-            <q-item-label>The Happy Boy</q-item-label>
-            <q-item-label caption lines="1">Author: Username</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
+      <div v-else class="text-center q-my-lg">
+        <div>شما داستانی به اشتراک نگذاشته اید</div>
+      </div>
 
       <q-separator color="grey-6" size="4px" class="q-my-md" />
 
-      <div class="font-14 text-weight-bold q-ml-md">لالایی های شما</div>
+      <!-- <div class="font-14 text-weight-bold q-ml-md">لالایی های شما</div>
 
       <q-dialog v-model="showLalaey">
         <q-card class="my-card bg-primary" flat bordered>
@@ -116,7 +112,12 @@
       </q-dialog>
 
       <div class="full-width q-pt-md">
-        <q-list class="SlideInFromRight" @click="toggleShowLalaey()">
+        <q-list
+          v-for="lalaey in lalaies"
+          :key="lalaey.id"
+          class="SlideInFromRight"
+          @click="toggleShowLalaey()"
+        >
           <q-item clickable v-ripple>
             <q-item-section avatar>
               <q-avatar size="75px" color="indigo-4" class="r11">
@@ -125,12 +126,12 @@
             </q-item-section>
 
             <q-item-section>
-              <q-item-label>The Happy Boy</q-item-label>
-              <q-item-label caption lines="1">Category: TK</q-item-label>
+              <q-item-label>{{ lalaey.Name }}</q-item-label>
+              <q-item-label caption lines="1">شما</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
-      </div>
+      </div> -->
     </div>
   </q-page>
 </template>
@@ -147,16 +148,17 @@ export default {
     const theStory = computed(() => store.theStory);
     const setCurrentStory = (data) => store.setCurrentStory(data);
     const showCurrentStory = computed(() => store.showCurrentStory);
-    const stories = ref([]);
     const storeStory = currentStory();
     const current = computed(() => storeStory.theStory);
     const show = ref(false);
-    const userinfo = ref([]);
-    const userRegistered = ref(false);
     const profile = ref(false);
     const userName = ref();
-    const showLalaey = ref(false);
     const showStory = ref(false);
+
+    const stories = ref([]);
+
+    const userinfo = ref([]);
+    const userRegistered = ref(false);
 
     function fetchUserStoris() {
       api.get("api/userStories").then((r) => {
@@ -186,14 +188,6 @@ export default {
         });
     }
 
-    function toggleShowLalaey() {
-      if (showLalaey.value === false) {
-        showLalaey.value = true;
-      } else {
-        showLalaey.value = false;
-      }
-    }
-
     function toggleShowStory() {
       if (showStory.value === false) {
         showStory.value = true;
@@ -217,12 +211,10 @@ export default {
       stories,
       current,
       setCurrentStory,
-      toggleShowLalaey,
       toggleShowStory,
       profile,
       Profile,
       userName,
-      showLalaey,
       showStory,
     };
   },

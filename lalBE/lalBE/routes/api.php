@@ -22,12 +22,11 @@ Route::get('/lalaies/search', [searchController::class, 'searchLalaey']);
 //User Login And Register Requests
 
 Route::post('register', function (Request $request) {
-    $pass = rand(111111, 999999);
-    Mail::to($request->email)->send(new SendPass($pass));
+    Mail::to($request->email)->send(new SendPass(""));
     $user = new User;
     $user->name = $request->name;
     $user->email = $request->email;
-    $user->password = Hash::make($pass);
+    $user->password = Hash::make($request->password);
     $user->save();
     return response()->json(['status'=> true]);
 });
@@ -43,6 +42,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('stories', StoryController::class);
 
     Route::get('userStories', [StoryController::class, 'userStories']);
+
+    Route::get('userLalaies', [LalaeyController::class, 'userLalaies']);
 
     Route::post('logout', [AuthController::class, 'logout']);
 

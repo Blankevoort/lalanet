@@ -12,9 +12,10 @@
           </q-item-section>
 
           <q-item-section>
-            <q-item-label style="font-size: 18px">{{
-              lalaey.Name
-            }}</q-item-label>
+            <q-item-label>{{ lalaey.Name }}</q-item-label>
+            <q-item-label caption lines="1"
+              >Author: {{ story.user.name }}</q-item-label
+            >
             <!-- <q-item-label caption lines="1">Category: TK</q-item-label> -->
           </q-item-section>
         </q-item>
