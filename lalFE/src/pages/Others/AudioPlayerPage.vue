@@ -46,13 +46,30 @@
 </template>
 
 <script>
-import { ref, computed, reactive, toRefs, onMounted } from "vue";
-import { currentLalai } from "stores/appData";
+import { ref, reactive, toRefs, onMounted } from "vue";
+import { api } from "src/boot/axios";
+
+import { useRouter, useRoute } from "vue-router";
 
 export default {
   setup() {
-    const storeLalai = currentLalai();
-    const current = computed(() => storeLalai.current);
+    const lalaey = ref([]);
+    const $route = useRoute();
+    const $router = useRouter();
+
+    function getLalaey() {
+      api
+        .get("getLalaey/" + $route.params.id)
+        .then((r) => {
+          lalaey.value = r.data;
+        })
+        .catch((err) => {
+          if (err.response.status === 404) {
+            $router.push("/404");
+          }
+        });
+    }
+
     const slider = ref(0);
     const state = reactive({
       currentPod: null,
@@ -77,7 +94,7 @@ export default {
         state.currentPod = document.querySelector("audio.podcast");
       }
       state.currentPod.src =
-        "http://127.0.0.1:8000/storage/Lalaeys/" + current.value.Audio_Path;
+        "http://127.0.0.1:8000/storage/Lalaeys/" + lalaey.value.Audio_Path;
       state.currentPod.onended = function () {
         state.currentPod.pause();
         state.podPlayed = false;
@@ -142,14 +159,15 @@ export default {
       }
     }
 
-    // onMounted(() => {
-    //   loadPod()
-    // })
+    onMounted(() => {
+      getLalaey();
+      loadPod();
+    });
 
     return {
+      lalaey,
       slider,
       setTime,
-      current,
       podPause,
       alert: ref(false),
       podcastToggle,

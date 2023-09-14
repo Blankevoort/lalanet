@@ -43,16 +43,6 @@ const routes = [
     // },
   },
   {
-    path: "/player",
-    component: () => import("src/layouts/PlayerLayout.vue"),
-    children: [
-      {
-        path: "",
-        component: () => import("src/pages/Others/AudioPlayerPage.vue"),
-      },
-    ],
-  },
-  {
     path: "/dashboard",
     component: () => import("layouts/DashboardLayout.vue"),
     children: [
@@ -116,6 +106,21 @@ const routes = [
     // meta: {
     //   requireAuth: true,
     // },
+  },
+  {
+    path: "/player/:id",
+    component: () => import("layouts/PlayerLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("src/pages/Others/AudioPlayerPage.vue"),
+      },
+    ],
+    meta: {
+      // requireAuth: true,
+      // headmasterAccess: true,
+      // deputyAccess: true,
+    },
   },
 
   {

@@ -35,7 +35,7 @@
             class="username q-mt-sm text-center text-weight-bold"
             style="font-size: 18px"
           >
-            نام کاربری
+           {{ userinfo.name }}
           </div>
         </div>
       </div>

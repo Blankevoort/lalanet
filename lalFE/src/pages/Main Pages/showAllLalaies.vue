@@ -4,7 +4,13 @@
 
     <div class="full-width absolute-bottom pageBttom q-pt-md">
       <q-list class="bg-primary SlideInFromRight">
-        <q-item v-for="lalaey in lalaies" :key="lalaey.id" clickable v-ripple>
+        <q-item
+          v-for="lalaey in lalaies"
+          :key="lalaey.id"
+          clickable
+          v-ripple
+          :to="'/player/' + lalaey.id"
+        >
           <q-item-section avatar>
             <q-avatar size="75px" color="indigo-2" class="r11">
               <q-icon color="white" name="star" />
@@ -13,9 +19,6 @@
 
           <q-item-section>
             <q-item-label>{{ lalaey.Name }}</q-item-label>
-            <q-item-label caption lines="1"
-              >Author: {{ story.user.name }}</q-item-label
-            >
             <!-- <q-item-label caption lines="1">Category: TK</q-item-label> -->
           </q-item-section>
         </q-item>
@@ -27,6 +30,7 @@
 <script>
 import { ref, onBeforeMount, computed } from "vue";
 import { api } from "src/boot/axios";
+import { useRouter } from "vue-router";
 
 import { currentLalai } from "stores/appData";
 import { storeToRefs } from "pinia";

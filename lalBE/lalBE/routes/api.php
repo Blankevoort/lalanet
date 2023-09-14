@@ -10,14 +10,16 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\LalaeyController;
-use App\Http\Controllers\searchController;
+// use App\Http\Controllers\searchController;
 use App\Http\Controllers\ProfileController;
 
 //Send And Search Lalaeys
 
 Route::resource('lalaies', LalaeyController::class);
 
-Route::get('/lalaies/search', [searchController::class, 'searchLalaey']);
+Route::get('getLalaey/{id}', [LalaeyController::class, 'getCurrent']);
+
+// Route::get('/lalaies/search', [searchController::class, 'searchLalaey']);
 
 //User Login And Register Requests
 

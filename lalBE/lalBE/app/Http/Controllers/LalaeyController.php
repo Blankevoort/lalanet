@@ -81,4 +81,14 @@ class LalaeyController extends Controller
 
         return redirect('/lalaey');
     }
+    public function getCurrent(Request $request, $id)
+    {
+        $lalaey = Lalaey::find($id);
+
+        if (!$lalaey) {
+            return response()->json(['message' => 'Lalaey not found'], 404);
+        }
+        
+        return response()->json($lalaey);
+    }
 }
