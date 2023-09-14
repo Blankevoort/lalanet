@@ -121,7 +121,6 @@ export default {
           password_confirmation: passConfirm.value,
         })
         .then((r) => {
-          console.log(r.data);
           $router.push("/login");
         })
         .catch((err) => {

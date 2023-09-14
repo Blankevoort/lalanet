@@ -82,6 +82,7 @@
       </q-card>
 
       <q-card
+        v-if="userRegistered"
         style="width: 140px; height: 140px"
         class="bg5 round15 text-center col-6 SlideInFromRight q-mt-md"
         @click="$router.push('/all-stories')"
@@ -96,6 +97,7 @@
       </q-card>
 
       <q-card
+        v-if="userRegistered"
         style="background-color: #fff3d1; width: 140px; height: 140px"
         class="round15 text-center col-6 SlideInFromRight q-mt-md"
         @click="$router.push('/dashboard')"
@@ -113,11 +115,31 @@
 </template>
 
 <script>
+import { ref, onBeforeMount } from "vue";
+import { api } from "src/boot/axios";
+
 import { useRouter } from "vue-router";
 
 export default {
   setup() {
-    return {};
+    const userinfo = ref([]);
+    const userRegistered = ref(false);
+
+    function fetchUserData() {
+      api.get("api/user").then((r) => {
+        userinfo.value = r.data;
+        userRegistered.value = true;
+      });
+    }
+
+    onBeforeMount(() => {
+      fetchUserData();
+    });
+
+    return {
+      userinfo,
+      userRegistered,
+    };
   },
 };
 </script>

@@ -1,6 +1,10 @@
 <template>
   <q-layout view="hHh lpR lFf">
-    <q-footer reveal class="q-mt-xl absolute">
+    <q-page-container class="bg-primary">
+      <router-view />
+    </q-page-container>
+
+    <q-footer reveal class="q-mt-xl absolute-bottom">
       <div
         indicator-color="transparent"
         active-color="deep-purple-3"
@@ -16,21 +20,22 @@
         />
 
         <q-btn
-          name="lalaies_list"
+          name="stories_list"
           icon="graphic_eq"
           style="font-size: 18px"
-          to="/all-stories"
+          to="/all-lalaies"
           no-caps
           flat
         />
 
         <q-btn
-          name="stories_list"
+          name="lalaies_list"
           icon="book"
           style="font-size: 18px"
-          to="/all-lalaies"
+          to="/all-stories"
           no-caps
           flat
+          v-if="userRegistered"
         />
 
         <q-btn
@@ -40,159 +45,43 @@
           to="/dashboard"
           no-caps
           flat
+          v-if="userRegistered"
         />
       </div>
     </q-footer>
-
-    <q-page-container class="bg-primary">
-      <router-view />
-    </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import { ref, computed, onBeforeMount } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { api } from "src/boot/axios";
 import { useRouter } from "vue-router";
 
-import { currentLalai } from "stores/appData";
-import { storeToRefs } from "pinia";
-
 export default {
-  name: "MyLayout",
   setup() {
-    const caris = ref([]);
-    const search = ref("");
     const userinfo = ref([]);
-    const router = useRouter();
-    const store = currentLalai();
     const userRegistered = ref(false);
-    const matchingLalaiNames = ref(false);
-    const current = computed(() => store.current);
-    const setCurrent = (data) => store.setCurrent(data);
-    const showCurrent = computed(() => store.showCurrent);
-    const auth = ref(true);
-    const email = ref("");
-    const username = ref("");
-    const password = ref("");
-    const toggle = ref(false);
+    const leftDrawerOpen = ref(false);
 
     function fetchUserData() {
-      api.get("api/user").then((r) => {
+      api.get("/api/user").then((r) => {
         userinfo.value = r.data;
         userRegistered.value = true;
       });
-    }
-
-    function searchLalaey() {
-      fetch("http://127.0.0.1:8000/api/lalaies/search?q=" + search.value)
-        .then((res) => res.json())
-        .then((res) => {
-          caris.value = res;
-          search.value = "";
-          matchingLalaiNames.value = true;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-
-    function logout() {
-      api
-        .post("/api/logout")
-        .then(localStorage.removeItem("token"))
-        .then(window.location.reload());
     }
 
     onBeforeMount(() => {
       fetchUserData();
     });
 
-    function register() {
-      api
-        .post("api/register", {
-          name: username.value,
-          email: email.value,
-        })
-        .then((r) => {
-          if (r.data.status == true) {
-            toggle.value = false;
-            $q.notify({
-              message: "رمز به ایمیل شما فرستاده شد",
-              color: "info",
-            });
-          } else {
-            $q.notify({
-              message: "چیزی اشتباه است.",
-              color: "negative",
-            });
-          }
-        })
-        .catch((err) => {
-          error.value = err;
-        });
-    }
-
-    function toggleAuth() {
-      if (auth.value === true) {
-        auth.value = false;
-      } else {
-        auth.value = true;
-      }
-    }
-
-    function toggleAuthForm() {
-      if (toggle.value === true) {
-        toggle.value = false;
-      } else {
-        toggle.value = true;
-      }
-    }
-
-    function login() {
-      api
-        .post("api/login", {
-          email: email.value,
-          password: password.value,
-        })
-        .then((r) => {
-          if (r.data.data.token) {
-            localStorage.setItem("token", r.data.data.token);
-            toggle.value = false;
-            location.reload();
-          }
-        })
-        .catch((err) => {
-          error.value = err;
-        });
-    }
-
     return {
-      caris,
-      search,
-      logout,
       userinfo,
-      setCurrent,
-      searchLalaey,
       userRegistered,
-      matchingLalaiNames,
-      auth,
-      email,
-      login,
-      username,
-      password,
-      register,
-      toggleAuth,
-      toggle,
-      toggleAuthForm,
-      tab: ref("profile"),
+      leftDrawerOpen,
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
+      },
     };
   },
 };
 </script>
-
-<style scoped>
-.q-layout__section--marginal {
-  background-color: inherit;
-}
-</style>

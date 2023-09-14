@@ -1,5 +1,30 @@
 <template>
   <q-page>
+    <q-dialog v-model="showStory">
+      <q-card class="my-card bg-primary" flat bordered>
+        <q-card-section class="col-5 flex flex-center">
+          <q-avatar size="75px" color="indigo-4" class="r11">
+            <q-icon color="white" name="menu_book" />
+          </q-avatar>
+        </q-card-section>
+
+        <q-card-section horizontal>
+          <q-card-section class="q-pt-xs">
+            <div class="text-h6 q-mt-sm q-mb-xs">{{ current.name }}</div>
+            <div class="text-caption text-grey">
+              {{ current.story }}
+            </div>
+          </q-card-section>
+        </q-card-section>
+
+        <q-separator />
+
+        <q-card-actions>
+          <q-btn flat color="cyan-6"> Reserve </q-btn>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
     <div class="top full-width text-center">
       <div class="row justify-center">
         <div class="SlideInFromTop" style="margin-top: 135px">
@@ -16,47 +41,19 @@
       </div>
     </div>
 
-    <div class="space full-width">
+    <div style="margin-top: 125px">
       <q-separator color="grey-6" size="4px" class="q-mb-md" />
 
       <div class="font-14 text-weight-bold q-ml-md">داستان های شما</div>
-
-      <q-dialog v-model="showStory">
-        <q-card class="my-card bg-primary" flat bordered>
-          <q-card-section class="col-5 flex flex-center">
-            <q-avatar size="75px" color="indigo-4" class="r11">
-              <q-icon color="white" name="menu_book" />
-            </q-avatar>
-          </q-card-section>
-
-          <q-card-section horizontal>
-            <q-card-section class="q-pt-xs">
-              <div class="text-h6 q-mt-sm q-mb-xs">Title</div>
-              <div class="text-caption text-grey">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </div>
-            </q-card-section>
-          </q-card-section>
-
-          <q-separator />
-
-          <q-card-actions>
-            <q-btn flat color="cyan-6"> Reserve </q-btn>
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
-
       <div v-if="stories">
         <q-list
           v-for="story in stories"
           :key="story.id"
           class="SlideInFromRight"
-          @click="toggleShowStory()"
+          @click="
+            setCurrentStory(story);
+            toggleShowStory();
+          "
         >
           <q-item clickable v-ripple>
             <q-item-section avatar>
@@ -67,71 +64,24 @@
 
             <q-item-section>
               <q-item-label>{{ story.name }}</q-item-label>
-              <q-item-label caption lines="1">شما</q-item-label>
+              <q-item-label
+                class="text-positive"
+                caption
+                lines="1"
+                v-if="story.isVerified"
+                >تایید شده</q-item-label
+              >
+              <q-item-label
+                class="text-negative"
+                caption
+                lines="1"
+                v-if="!story.isVerified"
+                >تایید نشده</q-item-label
+              >
             </q-item-section>
           </q-item>
         </q-list>
       </div>
-
-      <div v-else class="text-center q-my-lg">
-        <div>شما داستانی به اشتراک نگذاشته اید</div>
-      </div>
-
-      <q-separator color="grey-6" size="4px" class="q-my-md" />
-
-      <!-- <div class="font-14 text-weight-bold q-ml-md">لالایی های شما</div>
-
-      <q-dialog v-model="showLalaey">
-        <q-card class="my-card bg-primary" flat bordered>
-          <q-card-section class="col-5 flex flex-center">
-            <q-avatar size="75px" color="indigo-4" class="r11">
-              <q-icon color="white" name="star" />
-            </q-avatar>
-          </q-card-section>
-
-          <q-card-section horizontal>
-            <q-card-section class="q-pt-xs">
-              <div class="text-h6 q-mt-sm q-mb-xs">Title</div>
-              <div class="text-caption text-grey">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </div>
-            </q-card-section>
-          </q-card-section>
-
-          <q-separator />
-
-          <q-card-actions>
-            <q-btn flat color="cyan-6"> Reserve </q-btn>
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
-
-      <div class="full-width q-pt-md">
-        <q-list
-          v-for="lalaey in lalaies"
-          :key="lalaey.id"
-          class="SlideInFromRight"
-          @click="toggleShowLalaey()"
-        >
-          <q-item clickable v-ripple>
-            <q-item-section avatar>
-              <q-avatar size="75px" color="indigo-4" class="r11">
-                <q-icon color="white" name="star" />
-              </q-avatar>
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>{{ lalaey.Name }}</q-item-label>
-              <q-item-label caption lines="1">شما</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </div> -->
     </div>
   </q-page>
 </template>
@@ -151,8 +101,6 @@ export default {
     const storeStory = currentStory();
     const current = computed(() => storeStory.theStory);
     const show = ref(false);
-    const profile = ref(false);
-    const userName = ref();
     const showStory = ref(false);
 
     const stories = ref([]);
@@ -171,21 +119,6 @@ export default {
         userinfo.value = r.data;
         userRegistered.value = true;
       });
-    }
-
-    function Profile() {
-      api
-        .post("api/profile", {
-          userName: userName.value,
-        })
-        .then((r) => {
-          if (r.data != null) {
-            location.reload();
-          }
-        })
-        .catch((err) => {
-          error.value = err;
-        });
     }
 
     function toggleShowStory() {
@@ -212,9 +145,6 @@ export default {
       current,
       setCurrentStory,
       toggleShowStory,
-      profile,
-      Profile,
-      userName,
       showStory,
     };
   },
@@ -228,7 +158,6 @@ export default {
 
 .top {
   height: 200px;
-
   background: #64dddd;
 }
 
@@ -240,12 +169,6 @@ export default {
   border: 5px solid #ffffff;
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
   border-radius: 50%;
-}
-
-.space {
-  position: absolute;
-  width: 340px;
-  top: 352px;
 }
 
 @keyframes SlideInRight {

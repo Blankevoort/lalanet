@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from "vue";
+import { ref, onBeforeMount, computed } from "vue";
 import { api } from "src/boot/axios";
 
 import { currentLalai } from "stores/appData";
@@ -42,11 +42,10 @@ export default {
     function fetchLalaies() {
       api.get("/api/lalaies").then((r) => {
         lalaies.value = r.data;
-        console.log(r.data);
       });
     }
 
-    onMounted(() => {
+    onBeforeMount(() => {
       fetchLalaies();
     });
 

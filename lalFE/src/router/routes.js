@@ -53,19 +53,6 @@ const routes = [
     ],
   },
   {
-    path: "/upload",
-    component: () => import("layouts/MainLayout.vue"),
-    children: [
-      {
-        path: "",
-        component: () => import("src/pages/Main Pages/UploadStory.vue"),
-      },
-    ],
-    // meta: {
-    //   requireAuth: true,
-    // },
-  },
-  {
     path: "/dashboard",
     component: () => import("layouts/DashboardLayout.vue"),
     children: [
@@ -98,6 +85,32 @@ const routes = [
       {
         path: "",
         component: () => import("src/pages/Forms/RegisterPage.vue"),
+      },
+    ],
+    // meta: {
+    //   requireAuth: true,
+    // },
+  },
+  {
+    path: "/add-story",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("src/pages/Forms/UploadStory.vue"),
+      },
+    ],
+    // meta: {
+    //   requireAuth: true,
+    // },
+  },
+  {
+    path: "/debug",
+    component: () => import("layouts/TestingLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("src/pages/TestingPage.vue"),
       },
     ],
     // meta: {

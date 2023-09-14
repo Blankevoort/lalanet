@@ -7,7 +7,7 @@
       <q-toolbar>
         <q-btn flat round dense icon="menu" @click="toggleLeftDrawer" />
         <q-toolbar-title class="font-16 text-center">
-          سلام <span class="text-weight-bold">آدام</span>
+          سلام <span class="text-weight-bold">{{ userinfo.name }}!</span>
         </q-toolbar-title>
         <q-avatar class="bg2" @click="$router.push('/dashboard')">
           <img
@@ -92,6 +92,22 @@
         </q-item>
       </q-list>
 
+      <q-separator color="grey-4" inset size="4px" class="q-my-md" />
+
+      <q-list
+        class="q-my-lg q-mx-sm"
+        v-if="userRegistered"
+        :horizontal-thumb-style="{ opacity: 0 }"
+      >
+        <q-item to="/add-story" class="q-my-sm" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="add" />
+          </q-item-section>
+
+          <q-item-section>افزوردن داستان</q-item-section>
+        </q-item>
+      </q-list>
+
       <div
         class="absolute-bottom q-ma-md flex justify-center content-center align-center"
       >
@@ -125,15 +141,6 @@
         />
 
         <q-btn
-          name="lalaies_list"
-          icon="book"
-          style="font-size: 18px"
-          to="/all-stories"
-          no-caps
-          flat
-        />
-
-        <q-btn
           name="stories_list"
           icon="graphic_eq"
           style="font-size: 18px"
@@ -143,12 +150,23 @@
         />
 
         <q-btn
+          name="lalaies_list"
+          icon="book"
+          style="font-size: 18px"
+          to="/all-stories"
+          no-caps
+          flat
+          v-if="userRegistered"
+        />
+
+        <q-btn
           name="profile"
           icon="person"
           style="font-size: 18px"
           to="/dashboard"
           no-caps
           flat
+          v-if="userRegistered"
         />
       </div>
     </q-footer>
@@ -156,30 +174,14 @@
 </template>
 
 <script>
-import { ref, computed, onBeforeMount } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { api } from "src/boot/axios";
 import { useRouter } from "vue-router";
 
-import { currentLalai } from "stores/appData";
-import { storeToRefs } from "pinia";
-
 export default {
   setup() {
-    const caris = ref([]);
-    const search = ref("");
     const userinfo = ref([]);
-    const router = useRouter();
-    const store = currentLalai();
     const userRegistered = ref(false);
-    const matchingLalaiNames = ref(false);
-    const current = computed(() => store.current);
-    const setCurrent = (data) => store.setCurrent(data);
-    const showCurrent = computed(() => store.showCurrent);
-    const auth = ref(true);
-    const email = ref("");
-    const username = ref("");
-    const password = ref("");
-    const toggle = ref(false);
     const leftDrawerOpen = ref(false);
 
     function fetchUserData() {
@@ -189,107 +191,13 @@ export default {
       });
     }
 
-    function searchLalaey() {
-      fetch("http://127.0.0.1:8000/api/lalaies/search?q=" + search.value)
-        .then((res) => res.json())
-        .then((res) => {
-          caris.value = res;
-          search.value = "";
-          matchingLalaiNames.value = true;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-
-    function logout() {
-      api
-        .post("/api/logout")
-        .then(localStorage.removeItem("token"))
-        .then(window.location.reload());
-    }
-
     onBeforeMount(() => {
       fetchUserData();
     });
 
-    function register() {
-      api
-        .post("api/register", {
-          name: username.value,
-          email: email.value,
-        })
-        .then((r) => {
-          if (r.data.status == true) {
-            toggle.value = false;
-            $q.notify({
-              message: "رمز به ایمیل شما فرستاده شد",
-              color: "info",
-            });
-          } else {
-            $q.notify({
-              message: "چیزی اشتباه است.",
-              color: "negative",
-            });
-          }
-        })
-        .catch((err) => {
-          error.value = err;
-        });
-    }
-
-    function toggleAuth() {
-      if (auth.value === true) {
-        auth.value = false;
-      } else {
-        auth.value = true;
-      }
-    }
-
-    function toggleAuthForm() {
-      if (toggle.value === true) {
-        toggle.value = false;
-      } else {
-        toggle.value = true;
-      }
-    }
-
-    function login() {
-      api
-        .post("api/login", {
-          email: email.value,
-          password: password.value,
-        })
-        .then((r) => {
-          if (r.data.data.token) {
-            localStorage.setItem("token", r.data.data.token);
-            toggle.value = false;
-            location.reload();
-          }
-        })
-        .catch((err) => {
-          error.value = err;
-        });
-    }
-
     return {
-      caris,
-      search,
-      logout,
       userinfo,
-      setCurrent,
-      searchLalaey,
       userRegistered,
-      matchingLalaiNames,
-      auth,
-      email,
-      login,
-      username,
-      password,
-      register,
-      toggleAuth,
-      toggle,
-      toggleAuthForm,
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
