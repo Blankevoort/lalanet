@@ -35,7 +35,6 @@
           to="/all-stories"
           no-caps
           flat
-          v-if="userRegistered"
         />
 
         <q-btn
@@ -45,7 +44,6 @@
           to="/dashboard"
           no-caps
           flat
-          v-if="userRegistered"
         />
       </div>
     </q-footer>
@@ -61,7 +59,6 @@ export default {
   setup() {
     const userinfo = ref([]);
     const userRegistered = ref(false);
-    const leftDrawerOpen = ref(false);
 
     function fetchUserData() {
       api.get("/api/user").then((r) => {
@@ -77,10 +74,6 @@ export default {
     return {
       userinfo,
       userRegistered,
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
     };
   },
 };

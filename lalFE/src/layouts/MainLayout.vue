@@ -104,7 +104,7 @@
             <q-icon name="add" />
           </q-item-section>
 
-          <q-item-section>افزوردن داستان</q-item-section>
+          <q-item-section>افزودن داستان</q-item-section>
         </q-item>
       </q-list>
 

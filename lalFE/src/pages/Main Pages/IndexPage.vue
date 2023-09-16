@@ -55,7 +55,7 @@
     >
       <q-card
         style="width: 140px; height: 140px"
-        class="bg4 round15 text-center col-6 SlideInFromRight"
+        class="bg4 round15 text-center col-6 SlideInFromRight q-mt-md"
         @click="$router.push('/intro')"
       >
         <div class="absolute-center">
@@ -69,7 +69,7 @@
 
       <q-card
         style="background-color: #d5f8e5; width: 140px; height: 140px"
-        class="round15 text-center col-6 SlideInFromRight"
+        class="round15 text-center col-6 SlideInFromRight q-mt-md"
         @click="$router.push('/all-lalaies')"
       >
         <div class="absolute-center">
@@ -189,7 +189,7 @@ export default {
 
 @keyframes SlideInRight {
   from {
-    transform: translateX(300px);
+    transform: translateX(750px);
   }
 
   to {
@@ -199,7 +199,7 @@ export default {
 
 .SlideInFromRight {
   animation-name: SlideInRight;
-  animation-duration: 1s;
+  animation-duration: 2s;
   animation-timing-function: ease-in;
 }
 

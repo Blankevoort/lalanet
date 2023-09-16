@@ -38,9 +38,9 @@ const routes = [
         component: () => import("src/pages/Main Pages/showAllStories.vue"),
       },
     ],
-    // meta: {
-    //   requireAuth: true,
-    // },
+    meta: {
+      requireAuth: true,
+    },
   },
   {
     path: "/dashboard",
@@ -51,9 +51,9 @@ const routes = [
         component: () => import("src/pages/Main Pages/DashboardPage.vue"),
       },
     ],
-    // meta: {
-    //   requireAuth: true,
-    // },
+    meta: {
+      requireAuth: true,
+    },
   },
   {
     path: "/login",
@@ -64,9 +64,9 @@ const routes = [
         component: () => import("src/pages/Forms/LoginPage.vue"),
       },
     ],
-    // meta: {
-    //   requireAuth: true,
-    // },
+    meta: {
+      login: true,
+    },
   },
   {
     path: "/register",
@@ -77,9 +77,9 @@ const routes = [
         component: () => import("src/pages/Forms/RegisterPage.vue"),
       },
     ],
-    // meta: {
-    //   requireAuth: true,
-    // },
+    meta: {
+      login: true,
+    },
   },
   {
     path: "/add-story",
@@ -90,22 +90,9 @@ const routes = [
         component: () => import("src/pages/Forms/UploadStory.vue"),
       },
     ],
-    // meta: {
-    //   requireAuth: true,
-    // },
-  },
-  {
-    path: "/debug",
-    component: () => import("layouts/TestingLayout.vue"),
-    children: [
-      {
-        path: "",
-        component: () => import("src/pages/TestingPage.vue"),
-      },
-    ],
-    // meta: {
-    //   requireAuth: true,
-    // },
+    meta: {
+      requireAuth: true,
+    },
   },
   {
     path: "/player",
@@ -116,11 +103,6 @@ const routes = [
         component: () => import("src/pages/Others/AudioPlayerPage.vue"),
       },
     ],
-    meta: {
-      // requireAuth: true,
-      // headmasterAccess: true,
-      // deputyAccess: true,
-    },
   },
 
   {

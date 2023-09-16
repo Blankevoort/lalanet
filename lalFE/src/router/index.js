@@ -27,9 +27,6 @@ export default route(function (/* { store, ssrContext } */) {
     scrollBehavior: () => ({ left: 0, top: 0 }),
     routes,
 
-    // Leave this as is and make changes in quasar.conf.js instead!
-    // quasar.conf.js -> build -> vueRouterMode
-    // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
   Router.beforeEach((to, from, next) => {
@@ -38,11 +35,22 @@ export default route(function (/* { store, ssrContext } */) {
         next();
       } else {
         next({
-          path: "/",
+          path: "/login",
           query: {
             redirect: to.fullPath,
           },
         });
+      }
+    } else if (to.meta.login) {
+      if (localStorage.getItem("token")) {
+        next({
+          path: "/dashboard",
+          query: {
+            redirect: to.fullPath,
+          },
+        });
+      } else {
+        next();
       }
     } else {
       next();

@@ -35,7 +35,7 @@
             class="username q-mt-sm text-center text-weight-bold"
             style="font-size: 18px"
           >
-           {{ userinfo.name }}
+            {{ userinfo.name }}
           </div>
         </div>
       </div>
@@ -82,6 +82,7 @@
           </q-item>
         </q-list>
       </div>
+      <q-separator color="grey-6" size="4px" class="q-mt-md" />
     </div>
   </q-page>
 </template>
