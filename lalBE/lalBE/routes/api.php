@@ -17,8 +17,6 @@ use App\Http\Controllers\ProfileController;
 
 Route::resource('lalaies', LalaeyController::class);
 
-Route::get('getLalaey/{id}', [LalaeyController::class, 'getCurrent']);
-
 // Route::get('/lalaies/search', [searchController::class, 'searchLalaey']);
 
 //User Login And Register Requests

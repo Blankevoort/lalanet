@@ -3,15 +3,12 @@
     <img class="my-img full-width" src="/Images/introduction.png" />
     <q-img class="curveStyle q-pb-md full-width" src="/Images/curve.png">
       <div class="bg-transparent mt75 text-black">
-        <div class="font-16">Description</div>
-        <div class="text-grey-5 q-py-sm">
-          Lorem ipsum dolor sit amet consectetur. A amet tortor enim adipiscing
-          sed sit nisl donec tellus. Massa tincidunt pharetra orci integer
-          aenean ac nunc. Sit neque platea aenean in quis proin donec quis lacus
-          quis proin donec quis lacus quis lacus proin donec quis lacus quis
-          lacus proin donec quis
+        <div class="font-16">توضیحات</div>
+        <div class="text-grey-6 q-py-sm">
+          {{ current.Description }}
         </div>
-        <div class="font-16">Introduction - 1/5</div>
+
+        <!-- <div class="font-16">Introduction - 1/5</div>
         <div class="text-grey-5 q-py-sm">
           <div>
             <span class="q-mr-sm">00:00</span><span class="rectangle1"></span
@@ -25,51 +22,57 @@
             <span class="q-mr-sm">00:00</span><span class="rectangle3"></span
             ><span class="q-ml-md">Introduction about Chapter</span>
           </div>
-        </div>
+        </div> -->
       </div>
     </q-img>
-    <div class="player full-width">
-      <div class="row justify-between q-mx-xl q-mt-md">
+    <div class="player full-width row justify-center">
+      <audio class="podcast col-12"></audio>
+      <div class="col-12 row justify-center q-mx-xl q-mt-md">
         <!-- <q-btn class="btn1" round color="blue-grey-9" icon="arrow_forward" /> -->
-        <q-btn class="btn3" round color="indigo-4" icon="play_arrow" />
+        <q-btn
+          class="btn3"
+          round
+          v-if="!podPlayed"
+          color="indigo-4"
+          icon="play_arrow"
+          @click="podcastToggle()"
+        />
+
+        <q-btn
+          class="btn3"
+          round
+          v-else
+          color="indigo-4"
+          icon="pause"
+          @click="podcastToggle()"
+        />
         <!-- <q-btn class="btn2" round color="grey-5" icon="arrow_back" /> -->
       </div>
-      <q-slider
-        class="slider"
-        v-model="standard"
-        color="orange-4"
-        :min="0"
-        :max="10"
-      />
+      <div class="col-12 row justify-center content-center q-pl-md">
+        <q-slider
+          class="slider col-10"
+          v-model="slider"
+          @change="setTime"
+          @pan="podPause"
+          :min="0"
+          :max="1"
+          :step="0"
+          color="orange-4"
+        />
+        <div class="col-2 text-center">{{ podCurrentTimeDisplay }}</div>
+      </div>
     </div>
   </q-page>
 </template>
 
 <script>
-import { ref, reactive, toRefs, onMounted } from "vue";
-import { api } from "src/boot/axios";
-
-import { useRouter, useRoute } from "vue-router";
+import { ref, computed, reactive, toRefs, onMounted } from "vue";
+import { currentLalai } from "stores/appData";
 
 export default {
   setup() {
-    const lalaey = ref([]);
-    const $route = useRoute();
-    const $router = useRouter();
-
-    function getLalaey() {
-      api
-        .get("getLalaey/" + $route.params.id)
-        .then((r) => {
-          lalaey.value = r.data;
-        })
-        .catch((err) => {
-          if (err.response.status === 404) {
-            $router.push("/404");
-          }
-        });
-    }
-
+    const storeLalai = currentLalai();
+    const current = computed(() => storeLalai.current);
     const slider = ref(0);
     const state = reactive({
       currentPod: null,
@@ -80,6 +83,7 @@ export default {
       podOldTime: 0,
       podDurationDisplay: "00:00",
     });
+
     function loadPod() {
       if (state.currentPod) {
         state.currentPod.pause();
@@ -93,8 +97,9 @@ export default {
       } else {
         state.currentPod = document.querySelector("audio.podcast");
       }
+
       state.currentPod.src =
-        "http://127.0.0.1:8000/storage/Lalaeys/" + lalaey.value.Audio_Path;
+        "http://127.0.0.1:8000/storage/Lalaeys/" + current.value.Audio_Path;
       state.currentPod.onended = function () {
         state.currentPod.pause();
         state.podPlayed = false;
@@ -104,9 +109,11 @@ export default {
         state.podCurrentTime = 0;
         state.podCurrentTimeDisplay = "00:00";
       };
+
       state.currentPod.onloadedmetadata = function () {
         state.podDurationDisplay = fmtTime(state.currentPod.duration);
       };
+
       state.currentPod.addEventListener("timeupdate", () => {
         if (state.currentPod.currentTime - state.podOldTime > 1) {
           state.podOldTime = state.currentPod.currentTime;
@@ -116,6 +123,7 @@ export default {
         }
       });
     }
+
     function fmtTime(current) {
       var houres = Math.floor(current / 360);
       var minutes = Math.floor((current - houres * 60) / 60);
@@ -129,17 +137,20 @@ export default {
         return x + ":" + y + ":" + z;
       }
     }
+
     function setTime(value) {
       state.podPlayed = false;
       state.currentPod.pause();
       slider.value = value;
       var time = value * state.currentPod.duration;
       state.currentPod.currentTime = time;
+      console.log(state.currentPod.currentTime);
       state.podOldTime = time;
       state.podCurrentTimeDisplay = fmtTime(time);
       state.currentPod.play();
       state.podPlayed = true;
     }
+
     function podPause(phase) {
       if (phase === "start") {
         state.currentPod.pause();
@@ -149,6 +160,7 @@ export default {
         state.podPlayed = true;
       }
     }
+
     function podcastToggle() {
       if (state.currentPod.paused) {
         state.currentPod.play();
@@ -160,19 +172,17 @@ export default {
     }
 
     onMounted(() => {
-      getLalaey();
       loadPod();
     });
 
     return {
-      lalaey,
       slider,
       setTime,
+      current,
       podPause,
       alert: ref(false),
       podcastToggle,
       ...toRefs(state),
-      standard: ref(0),
     };
   },
 };
@@ -230,7 +240,7 @@ export default {
   position: absolute;
   height: 130px;
   left: 0px;
-  top: 680px;
+  top: 650px;
 
   background: #e7ecf2;
   backdrop-filter: blur(5px);
@@ -256,13 +266,10 @@ export default {
   position: absolute;
   width: 60px;
   height: 60px;
-  left: 152px;
 }
 
 .slider {
-  width: 327px;
+  width: 80%;
   height: 5px;
-  left: 30px;
-  top: 65px;
 }
 </style>

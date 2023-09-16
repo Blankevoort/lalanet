@@ -108,7 +108,7 @@ const routes = [
     // },
   },
   {
-    path: "/player/:id",
+    path: "/player",
     component: () => import("layouts/PlayerLayout.vue"),
     children: [
       {

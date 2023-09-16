@@ -24,7 +24,7 @@ class LalaeyController extends Controller
             'Name' => 'required',
             'Lang' => 'required',
             'Type' => 'required',
-            'Description' => 'max:500',
+            'Description' => 'max:10000',
             'Audio' => 'mimes:mp3|max:15000',
         ]);
 
@@ -57,7 +57,7 @@ class LalaeyController extends Controller
             'Name' => 'required',
             'Lang' => 'required',
             'Type' => 'required',
-            'Description' => 'max:5000',
+            'Description' => 'max:10000',
         ]);
 
         $NewAudioeName = time() . '-' . $request->Name . '.' . $request->Audio->extension();
@@ -80,15 +80,5 @@ class LalaeyController extends Controller
         $lalaey->delete();
 
         return redirect('/lalaey');
-    }
-    public function getCurrent(Request $request, $id)
-    {
-        $lalaey = Lalaey::find($id);
-
-        if (!$lalaey) {
-            return response()->json(['message' => 'Lalaey not found'], 404);
-        }
-        
-        return response()->json($lalaey);
     }
 }

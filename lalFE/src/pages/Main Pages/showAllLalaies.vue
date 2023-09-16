@@ -9,7 +9,10 @@
           :key="lalaey.id"
           clickable
           v-ripple
-          :to="'/player/' + lalaey.id"
+          @click="
+            setCurrent(lalaey);
+            $router.push('/player');
+          "
         >
           <q-item-section avatar>
             <q-avatar size="75px" color="indigo-2" class="r11">

@@ -6,7 +6,7 @@
           <q-icon color="red-6" name="favorite" />
         </q-btn>
 
-        <div class="font-16 text-weight-bold q-mt-sm">Lalaey Name</div>
+        <div class="font-16 text-weight-bold q-mt-sm">{{ current.Name }}</div>
 
         <q-btn to="/" flat>
           <q-icon name="arrow_back" />
@@ -28,13 +28,12 @@
 import { ref, computed, onBeforeMount } from "vue";
 import { api } from "src/boot/axios";
 import { useRouter } from "vue-router";
-
 import { currentLalai } from "stores/appData";
-import { storeToRefs } from "pinia";
 
 export default {
-  name: "SecondaryLayout",
   setup() {
+    const storeLalai = currentLalai();
+    const current = computed(() => storeLalai.current);
     const caris = ref([]);
     const search = ref("");
     const userinfo = ref([]);
@@ -42,9 +41,6 @@ export default {
     const store = currentLalai();
     const userRegistered = ref(false);
     const matchingLalaiNames = ref(false);
-    const current = computed(() => store.current);
-    const setCurrent = (data) => store.setCurrent(data);
-    const showCurrent = computed(() => store.showCurrent);
     const auth = ref(true);
     const email = ref("");
     const username = ref("");
@@ -143,11 +139,11 @@ export default {
     }
 
     return {
+      current,
       caris,
       search,
       logout,
       userinfo,
-      setCurrent,
       searchLalaey,
       userRegistered,
       matchingLalaiNames,
