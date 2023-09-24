@@ -8,6 +8,14 @@
           {{ current.Description }}
         </div>
 
+        <video
+          ref="videoPlayer"
+          class="video-js vjs-default-skin"
+          controls
+          preload="auto"
+          :src="videoSource"
+        ></video>
+
         <!-- <div class="font-16">Introduction - 1/5</div>
         <div class="text-grey-5 q-py-sm">
           <div>
@@ -68,9 +76,14 @@
 <script>
 import { ref, computed, reactive, toRefs, onMounted } from "vue";
 import { currentLalai } from "stores/appData";
+import "video.js/dist/video-js.min.css";
+import videojs from "video.js";
 
 export default {
   setup() {
+    const player = ref();
+    const videoPlayer = ref();
+    const videoSource = ref("../../../public/video.mp4");
     const storeLalai = currentLalai();
     const current = computed(() => storeLalai.current);
     const slider = ref(0);
@@ -171,15 +184,31 @@ export default {
       }
     }
 
+    const initializeVideoPlayer = () => {
+      const options = {
+        controls: true,
+        fluid: true,
+      };
+
+      player = videojs(videoPlayer.value, options, function () {
+        // Player is ready
+        console.log("Video player is ready");
+      });
+    };
+
     onMounted(() => {
       loadPod();
+      initializeVideoPlayer();
     });
 
     return {
+      player,
       slider,
       setTime,
       current,
       podPause,
+      videoSource,
+      videoPlayer,
       alert: ref(false),
       podcastToggle,
       ...toRefs(state),
