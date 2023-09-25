@@ -104,6 +104,16 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/test",
+    component: () => import("layouts/EmptyLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("src/pages/Others/VideoJs.vue"),
+      },
+    ],
+  },
 
   {
     path: "/:catchAll(.*)*",
