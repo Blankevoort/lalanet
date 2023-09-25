@@ -6,7 +6,12 @@
         type="video/mp4"
       />
 
-      <q-slider v-model="currentTime" :min="0" :max="duration" @input="seekTo" />
+      <q-slider
+        v-model="currentTime"
+        :min="0"
+        :max="duration"
+        @input="seekTo"
+      />
     </audio>
   </q-page>
 </template>
@@ -24,14 +29,14 @@ export default {
     const currentTime = ref();
 
     function loadPlayer() {
-      player = videojs(audioPlayer.value, {}, function () {});
-      player.on('loadedmetadata', () => {
-        duration.value = player.duration();
+      player = videojs(
+        document.querySelector(".video-js"),
+        options,
+        function () {}
+      );
+      player.value.on("loadedmetadata", () => {
+        duration.value = player.value.duration();
       });
-    }
-
-    function seekTo() {
-      player.currentTime(currentTime.value);
     }
 
     onMounted(() => {
