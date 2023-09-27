@@ -139,16 +139,31 @@ export default {
     }
 
     function setTime(value) {
+      console.log(state.currentPod.duration);
       state.podPlayed = false;
       state.currentPod.pause();
       slider.value = value;
-      var time = value * state.currentPod.duration;
-      state.currentPod.currentTime = time;
-      console.log(state.currentPod.currentTime);
-      state.podOldTime = time;
-      state.podCurrentTimeDisplay = fmtTime(time);
-      state.currentPod.play();
-      state.podPlayed = true;
+      var duration = state.currentPod.duration;
+      var time = value * duration;
+      console.log(time);
+      console.log("Setting up 'canplay' event listener...");
+
+      function onCanPlay() {
+        console.log("Audio is playable/loaded!");
+
+        state.currentPod.currentTime = time;
+        console.log(state.currentPod.currentTime);
+        state.podOldTime = time;
+        state.podCurrentTimeDisplay = fmtTime(time);
+        state.currentPod.play();
+        state.podPlayed = true;
+
+        state.currentPod.removeEventListener("canplay", onCanPlay);
+      }
+
+      console.log("Setting up 'canplay' event listener...");
+
+      state.currentPod.addEventListener("canplay", onCanPlay);
     }
 
     function podPause(phase) {
